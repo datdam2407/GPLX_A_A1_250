@@ -1,0 +1,6 @@
+{
+  "name": "Ôn Thi GPLX",
+  "description": "Ứng dụng ôn thi 250 câu hỏi lý thuyết bằng lái xe máy A1/A với thi thử tự động chấm điểm, lưu lịch sử và ôn tập câu sai.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

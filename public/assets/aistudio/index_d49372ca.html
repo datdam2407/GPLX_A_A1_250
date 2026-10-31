@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111d31"><title>Ôn Thi A1 A — Prototype</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar"><div class="brand-mark">A</div><div><div class="brand">Ôn Thi A1 A</div><div class="eyebrow">LUYỆN THI THÔNG MINH</div></div><span class="sample">DỮ LIỆU MẪU</span></header>
+  <main>
+    <section id="home" class="screen active">
+      <div class="hero"><p class="eyebrow gold">LỘ TRÌNH CỦA BẠN</p><h1>Vững lý thuyết.<br><em>Tự tin cầm lái.</em></h1><p class="muted">Mỗi ngày một chút — tiến gần hơn đến mục tiêu.</p>
+      <div class="progress-row"><div><strong>64%</strong><small>Hoàn thành bộ câu hỏi</small></div><div class="ring"><span>160/250</span></div></div></div>
+      <div class="stats-grid"><article><b>120</b><small>Đã thuộc</small></article><article><b>25</b><small>Cần ôn lại</small></article><article><b>85%</b><small>Độ chính xác</small></article></div>
+      <button class="primary" onclick="show('learning')">Tiếp tục học <span>→</span></button>
+      <h2>Học tập</h2><div class="shortcut-grid">
+        <button onclick="show('learning')"><span>◈</span><b>Học câu hỏi</b><small>Ôn theo chủ đề</small></button>
+        <button onclick="show('exam')"><span>◷</span><b>Thi thử</b><small>25 câu · 19 phút</small></button>
+        <button onclick="toast('Khu vực câu sai sẽ được hoàn thiện ở phiên bản tiếp theo.')"><span>↻</span><b>Câu trả lời sai</b><small>Ôn tập có mục tiêu</small></button>
+        <button onclick="toast('Bộ biển báo đang chờ dữ liệu chính thức.')"><span>△</span><b>Biển báo</b><small>Nhận diện nhanh</small></button>
+        <button onclick="toast('Mẹo ghi nhớ sẽ được bổ sung.')"><span>✦</span><b>Mẹo ghi nhớ</b><small>Ghi nhớ dễ hơn</small></button>
+        <button onclick="toast('Danh sách 20 câu điểm liệt chưa được xác minh trong bản demo.')"><span>!</span><b>20 câu điểm liệt</b><small>Ưu tiên ôn luyện</small></button>
+      </div>
+    </section>
+    <section id="learning" class="screen">
+      <div class="section-head"><div><p class="eyebrow gold">CHẾ ĐỘ HỌC</p><h1>Luyện tập câu hỏi</h1></div><span class="pill">Câu <b id="learnNo">01</b>/250</span></div>
+      <div class="topic">QUY TẮC GIAO THÔNG</div><div class="question-card"><p class="eyebrow">CÂU HỎI MINH HỌA</p><h2 id="question">Khi tham gia giao thông, người điều khiển xe phải đi như thế nào?</h2><div id="choices"></div><div id="feedback" class="feedback hidden"></div></div>
+      <div class="button-row"><button class="secondary" onclick="show('home')">Quay lại</button><button class="primary" onclick="checkAnswer()">Kiểm tra đáp án</button></div>
+      <button class="text-button" onclick="nextQuestion()">Câu tiếp theo →</button>
+    </section>
+    <section id="exam" class="screen">
+      <div id="examIntro"><p class="eyebrow gold">MÔ PHỎNG KỲ THI</p><h1>Sẵn sàng thử sức?</h1><p class="muted">Bài thi mẫu gồm 25 câu hỏi. Thời gian và ngưỡng đạt chỉ mang tính minh họa.</p><div class="exam-info"><div><b>25</b><small>Câu hỏi</small></div><div><b>19'</b><small>Thời gian</small></div><div><b>21/25</b><small>Ngưỡng mẫu</small></div></div><button class="primary" onclick="startExam()">Bắt đầu thi thử <span>→</span></button></div>
+      <div id="examPlay" class="hidden"><div class="exam-top"><div><p class="eyebrow gold">ĐỀ THI THỬ</p><h1>Câu <span id="examNo">1</span>/25</h1></div><div class="timer" id="timer">19:00</div></div><div class="question-card"><div class="topic">CÂU HỎI MINH HỌA</div><h2 id="examQuestion"></h2><div id="examChoices"></div></div><div class="exam-actions"><button class="secondary" onclick="prevExam()">← Trước</button><button class="secondary" onclick="markExam()">☆ Đánh dấu</button><button class="primary" onclick="nextExam()">Tiếp →</button></div><div class="question-map" id="questionMap"></div><button class="submit-button" onclick="submitExam()">Nộp bài thi</button></div>
+    </section>
+    <section id="result" class="screen"><p class="eyebrow gold">TỔNG KẾT BÀI THI</p><div class="result-score"><strong id="score">0/25</strong><span id="resultStatus">CHƯA ĐẠT</span></div><h1 id="resultTitle">Cố gắng thêm nhé!</h1><p class="muted">Kết quả chỉ là dữ liệu mô phỏng của prototype.</p><div class="stats-grid"><article><b id="correctCount">0</b><small>Câu đúng</small></article><article><b id="wrongCount">25</b><small>Câu sai</small></article><article><b>0</b><small>Điểm liệt mẫu</small></article></div><button class="primary" onclick="show('learning')">Ôn lại câu hỏi</button><button class="secondary full" onclick="show('exam');resetExam()">Thi thử lại</button></section>
+    <section id="statistics" class="screen"><p class="eyebrow gold">TỔNG QUAN HỌC TẬP</p><h1>Thống kê của bạn</h1><div class="stats-grid"><article><b>160</b><small>Đã luyện</small></article><article><b>85%</b><small>Chính xác</small></article><article><b>04</b><small>Lần thi thử</small></article></div><div class="panel"><h2>Tiến độ theo chủ đề</h2><div class="bar-item"><span>Quy tắc giao thông</span><b>78%</b><div class="bar"><i style="width:78%"></i></div></div><div class="bar-item"><span>Văn hóa giao thông</span><b>62%</b><div class="bar"><i style="width:62%"></i></div></div><div class="bar-item"><span>Biển báo đường bộ</span><b>54%</b><div class="bar"><i style="width:54%"></i></div></div><div class="bar-item"><span>Kỹ thuật lái xe</span><b>41%</b><div class="bar"><i style="width:41%"></i></div></div></div><div class="panel"><h2>Lịch sử thi thử</h2><div class="history"><span>Hôm nay · Đề mẫu 01</span><b>22/25</b></div><div class="history"><span>Hôm qua · Đề mẫu 02</span><b>19/25</b></div><div class="history"><span>28/10 · Đề mẫu 03</span><b>21/25</b></div></div></section>
+  </main>
+  <nav class="bottom-nav"><button class="nav active" data-screen="home" onclick="show('home')">⌂<small>Trang chủ</small></button><button class="nav" data-screen="learning" onclick="show('learning')">◈<small>Học</small></button><button class="nav" data-screen="exam" onclick="show('exam')">◷<small>Thi thử</small></button><button class="nav" data-screen="statistics" onclick="show('statistics')">▥<small>Thống kê</small></button></nav>
+</div><div id="toast" class="toast"></div><script src="app.js"></script>
+</body></html>
